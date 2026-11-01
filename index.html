@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маленькое письмо для Сашуни ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #e978a4;
+  --dark: #a84770;
+  --light: #fff3f8;
+  --border: #ffd2e2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Comfortaa', sans-serif;
+  color: var(--dark);
+  background:
+    radial-gradient(circle at 10% 20%, #fff8fb 0, transparent 30%),
+    radial-gradient(circle at 90% 80%, #ffe0ec 0, transparent 35%),
+    linear-gradient(145deg, #ffe8f0, #ffd5e5, #fff0f6);
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+}
+
+#hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating {
+  position: absolute;
+  bottom: -50px;
+  animation: floatUp linear forwards;
+  opacity: .7;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-115vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.music {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+  border: 1px solid white;
+  background: rgba(255,255,255,.8);
+  color: #b54d79;
+  border-radius: 30px;
+  padding: 11px 15px;
+  font-size: 12px;
+  box-shadow: 0 5px 15px #c66b8d20;
+  cursor: pointer;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding: 65px 17px 35px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.page.active {
+  display: flex;
+  animation: pageIn .7s ease both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 430px;
+  padding: 30px 21px;
+  border: 2px solid white;
+  border-radius: 32px;
+  background: rgba(255,255,255,.83);
+  box-shadow: 0 15px 45px #bb5a8020;
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-weight: 400;
+  font-size: clamp(29px, 7vw, 42px);
+  line-height: 1.5;
+  color: #ca5b88;
+  margin: 12px 0;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 10px 0;
+}
+
+button {
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+}
+
+button:active {
+  transform: scale(.94);
+}
+
+.primary {
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #f19abb, #d85c91);
+  box-shadow: 0 7px 17px #d86a962c;
+  margin: 9px 5px;
+}
+
+.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px #d86a9650;
+}
+
+.secondary {
+  color: #c35b86;
+  background: white;
+  border: 2px solid #f5c5d9;
+  border-radius: 50px;
+  padding: 13px 23px;
+  font-weight: 700;
+  margin: 9px 5px;
+}
+
+.illustration {
+  font-size: 75px;
+  margin: 15px 0;
+  animation: bob 3s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+.decor {
+  font-size: 24px;
+  margin: 15px;
+}
+
+/* КОНВЕРТ */
+
+.envelope-wrap {
+  width: 270px;
+  height: 205px;
+  position: relative;
+  margin: 40px auto 15px;
+  perspective: 900px;
+}
+
+.envelope {
+  position: absolute;
+  bottom: 0;
+  width: 270px;
+  height: 165px;
+  border-radius: 12px;
+  background: #f4a3c2;
+  box-shadow: 0 12px 25px #c75c862e;
+}
+
+.letter {
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+  width: 230px;
+  height: 140px;
+  border-radius: 9px;
+  background: #fff9fc;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Pacifico', cursive;
+  font-size: 21px;
+  color: #c95b88;
+  transition: transform 1s ease;
+}
+
+.flap {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 135px solid transparent;
+  border-right: 135px solid transparent;
+  border-top: 100px solid #ffd1e1;
+  transform-origin: top;
+  transition: transform .7s ease;
+}
+
+.front {
+  position: absolute;
+  bottom: 0;
+  width: 270px;
+  height: 165px;
+  z-index: 2;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(145deg, #f9b4ce, #ec8eb4);
+  clip-path: polygon(0 0, 50% 65%, 100% 0, 100% 100%, 0 100%);
+}
+
+.seal {
+  position: absolute;
+  z-index: 4;
+  top: 80px;
+  left: 111px;
+  font-size: 43px;
+  transition: opacity .4s;
+}
+
+.envelope-wrap.open .flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+
+.envelope-wrap.open .letter {
+  transform: translateY(-105px);
+}
+
+.envelope-wrap.open .seal {
+  opacity: 0;
+}
+
+/* ВЫБОР ЕДЫ */
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+  margin: 20px 0;
+}
+
+.food {
+  padding: 8px;
+  background: white;
+  border: 3px solid transparent;
+  border-radius: 20px;
+  color: #a84770;
+  overflow: hidden;
+}
+
+.food:hover {
+  transform: translateY(-4px);
+}
+
+.food img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-radius: 13px;
+}
+
+.food span {
+  display: block;
+  padding: 10px 2px 5px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.food.selected {
+  border-color: #db6595;
+  background: #fff0f6;
+  transform: scale(1.04);
+  box-shadow: 0 6px 15px #d86a9630;
+}
+
+#food-next:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.small {
+  font-size: 12px;
+  opacity: .8;
+}
+
+/* ФИНАЛЬНЫЙ СЮРПРИЗ */
+
+.big-heart {
+  font-size: 100px;
+  display: none;
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  45% { transform: scale(1.05); }
+  65% { transform: scale(1.25); }
+}
+
+.final-text {
+  display: none;
+  animation: pageIn .8s ease;
+}
+
+.final-text h1 {
+  font-size: 32px;
+}
+
+@media(max-width: 370px) {
+  .card { padding: 24px 14px; }
+  .food img { height: 95px; }
+  .envelope-wrap {
+    transform: scale(.88);
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<button class="music" id="musicButton" onclick="toggleMusic()">
+  ♫ Включить музыку
+</button>
+
+<!-- 1. КОНВЕРТ -->
+
+<section class="page active" id="page1">
+  <div class="card">
+    <div class="decor">🌷 🧸 🌷</div>
+    <h1>Для моей Сашуни</h1>
+    <p>Тебе пришло одно очень важное письмо...</p>
+
+    <div class="envelope-wrap" id="envelope">
+      <div class="envelope">
+        <div class="letter">Для любимого ❤️</div>
+        <div class="flap"></div>
+        <div class="front"></div>
+        <div class="seal">💗</div>
+      </div>
+    </div>
+
+    <p>От самого любимого человека</p>
+    <button class="primary" onclick="openEnvelope()">
+      Открыть конверт 💌
+    </button>
+  </div>
+</section>
+
+<!-- 2. ПРИГЛАШЕНИЕ -->
+
+<section class="page" id="page2">
+  <div class="card">
+    <div class="illustration">🐱💕🐱</div>
+    <h1>Сашуня!</h1>
+    <p style="font-size:19px;font-weight:700">
+      Ты пойдёшь со мной на свидание?
+    </p>
+    <p>Я очень хочу провести этот день вместе с тобой 🌸</p>
+
+    <div class="decor">🌹 🧸 🌹</div>
+
+    <button class="primary" onclick="goTo(4)">
+      ДА! ❤️
+    </button>
+
+    <button class="secondary" onclick="goTo(3)">
+      Нет 🙈
+    </button>
+  </div>
+</section>
+
+<!-- 3. УГОВАРИВАЕМ -->
+
+<section class="page" id="page3">
+  <div class="card">
+    <div class="illustration">🥺🐱</div>
+    <h1>Ну пожааалуйста!</h1>
+    <p style="font-size:19px;font-weight:700">
+      Может, всё-таки пойдёшь?
+    </p>
+    <p>Посмотри, котик уже расстроился...</p>
+    <div class="illustration">🐈‍⬛💗</div>
+
+    <button class="primary" onclick="goTo(4)">
+      Ладно, пойду! ❤️
+    </button>
+  </div>
+</section>
+
+<!-- 4. ДАТА -->
+
+<section class="page" id="page4">
+  <div class="card">
+    <div class="illustration">🗓️💗</div>
+    <h1>Урааа!</h1>
+    <p style="font-size:22px;font-weight:700">
+      10.11.2026
+    </p>
+    <p style="font-size:19px">
+      Ты свободен для нас?
+    </p>
+    <div class="decor">🌸 🐱 🌸</div>
+
+    <button class="primary" onclick="goTo(5)">
+      Да, конечно! 💕
+    </button>
+  </div>
+</section>
+
+<!-- 5. ЕДА -->
+
+<section class="page" id="page5">
+  <div class="card">
+    <div class="illustration">😋🍓</div>
+    <h1>Тогда выбирай!</h1>
+    <p>Что мы будем кушать на нашем свидании?</p>
+
+    <div class="food-grid">
+
+      <button class="food" onclick="chooseFood('Пицца 🍕',this)">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=85" alt="Пицца">
+        <span>🍕 Пицца</span>
+      </button>
+
+      <button class="food" onclick="chooseFood('Бургер 🍔',this)">
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=85" alt="Бургер">
+        <span>🍔 Бургер</span>
+      </button>
+
+      <button class="food" onclick="chooseFood('Суши 🍣',this)">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=85" alt="Суши">
+        <span>🍣 Суши</span>
+      </button>
+
+      <button class="food" onclick="chooseFood('Рамен 🍜',this)">
+        <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&auto=format&fit=crop&q=85" alt="Рамен">
+        <span>🍜 Рамен</span>
+      </button>
+
+    </div>
+
+    <p class="small" id="food-hint">
+      Выбери то, что тебе больше хочется ❤️
+    </p>
+
+    <button class="primary" id="food-next"
+      onclick="goTo(6)" disabled>
+      Выбрал! 💗
+    </button>
+  </div>
+</section>
+
+<!-- 6. ФИНАЛ -->
+
+<section class="page" id="page6">
+  <div class="card">
+    <div class="illustration" id="finalCats">🐱💞🐱</div>
+
+    <h1>Тогда договорились!</h1>
+
+    <p style="font-size:18px">
+      10 ноября — только ты и я ❤️
+    </p>
+
+    <p id="food-result" style="font-weight:700;color:#c34f80"></p>
+
+    <p style="font-size:18px;font-weight:700;margin-top:20px">
+      Жду не дождусь нашего дня!
+    </p>
+
+    <h1 style="font-size:32px">
+      Люблю тебя калбаска ❤️
+    </h1>
+
+    <div class="decor">🌹 💗 🌹</div>
+
+    <button class="primary" id="loveButton" onclick="love()">
+      И я тебя люблю ❤️
+    </button>
+
+    <div class="big-heart" id="bigHeart">❤️</div>
+
+    <div class="final-text" id="finalText">
+      <h1>А я тебя ещё сильнее!</h1>
+      <p>Ты моё любимое счастье 🥹</p>
+      <div class="illustration">🐱💗🐱</div>
+      <p>До нашей маленькой романтической встречи!</p>
+      <div class="decor">🌷 🌸 🌷</div>
+    </div>
+  </div>
+</section>
+
+<script>
+
+// ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+
+function goTo(number) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById('page' + number).classList.add('active');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  if (number === 6) {
+    document.getElementById('food-result').textContent =
+      'Сегодня мы будем кушать: ' + selectedFood;
+  }
+}
+
+// ОТКРЫТИЕ КОНВЕРТА
+
+function openEnvelope() {
+  const envelope = document.getElementById('envelope');
+  envelope.classList.add('open');
+
+  createHearts(15);
+
+  setTimeout(() => {
+    goTo(2);
+  }, 1300);
+}
+
+// ВЫБОР ЕДЫ
+
+let selectedFood = '';
+
+function chooseFood(food, element) {
+  selectedFood = food;
+
+  document.querySelectorAll('.food').forEach(item => {
+    item.classList.remove('selected');
+  });
+
+  element.classList.add('selected');
+
+  const next = document.getElementById('food-next');
+  next.disabled = false;
+
+  document.getElementById('food-hint').textContent =
+    'Ммм, отличный выбор: ' + food;
+}
+
+// ФИНАЛ
+
+function love() {
+  document.getElementById('loveButton').style.display = 'none';
+  document.getElementById('finalCats').style.display = 'none';
+
+  document.getElementById('bigHeart').style.display = 'block';
+  document.getElementById('finalText').style.display = 'block';
+
+  createHearts(70);
+}
+
+// ЛЕТАЮЩИЕ СЕРДЕЧКИ
+
+function createHearts(amount) {
+  const container = document.getElementById('hearts');
+
+  for (let i = 0; i < amount; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'floating';
+
+    heart.textContent = ['❤️','💕','💗','🌸','💖','🌷'][
+      Math.floor(Math.random() * 6)
+    ];
+
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+    heart.style.animationDuration = (4 + Math.random() * 5) + 's';
+
+    container.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 9500);
+  }
+}
+
+setInterval(() => createHearts(2), 1100);
+
+// НЕЖНАЯ ОРИГИНАЛЬНАЯ МЕЛОДИЯ
+
+let audioContext = null;
+let musicTimer = null;
+let musicPlaying = false;
+let noteIndex = 0;
+
+const melody = [
+  523.25, 659.25, 783.99, 659.25,
+  587.33, 659.25, 523.25, 392.00,
+  440.00, 523.25, 659.25, 523.25,
+  392.00, 440.00, 523.25, 440.00
+];
+
+function playNote(frequency) {
+  if (!audioContext || !musicPlaying) return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = 'sine';
+  oscillator.frequency.value = frequency;
+
+  gain.gain.setValueAtTime(0, audioContext.currentTime);
+  gain.gain.linearRampToValueAtTime(
+    0.045, audioContext.currentTime + 0.08
+  );
+  gain.gain.exponentialRampToValueAtTime(
+    0.001, audioContext.currentTime + 0.65
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + 0.7);
+}
+
+function playMelody() {
+  if (!musicPlaying) return;
+
+  playNote(melody[noteIndex % melody.length]);
+  noteIndex++;
+
+  musicTimer = setTimeout(playMelody, 420);
+}
+
+async function toggleMusic() {
+  const button = document.getElementById('musicButton');
+
+  if (!musicPlaying) {
+    try {
+      if (!audioContext) {
+        const Audio = window.AudioContext || window.webkitAudioContext;
+        if (!Audio) throw new Error('Audio not supported');
+        audioContext = new Audio();
+      }
+
+      await audioContext.resume();
+
+      musicPlaying = true;
+      button.textContent = '♫ Выключить музыку';
+      playMelody();
+
+    } catch (error) {
+      button.textContent = 'Музыка недоступна';
+    }
+
+  } else {
+    musicPlaying = false;
+    clearTimeout(musicTimer);
+
+    if (audioContext) {
+      await audioContext.suspend();
+    }
+
+    button.textContent = '♫ Включить музыку';
+  }
+}
+
+</script>
+
+</body>
+</html>
