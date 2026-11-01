@@ -36,6 +36,12 @@ body {
 
 button {
   font-family: inherit;
+  cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+}
+
+button:active {
+  transform: scale(.94);
 }
 
 #hearts {
@@ -127,15 +133,6 @@ p {
   font-size: 15px;
   line-height: 1.8;
   margin: 10px 0;
-}
-
-button {
-  cursor: pointer;
-  transition: transform .25s, box-shadow .25s;
-}
-
-button:active {
-  transform: scale(.94);
 }
 
 .primary {
@@ -345,8 +342,14 @@ button:active {
 }
 
 @media(max-width: 370px) {
-  .card { padding: 24px 14px; }
-  .food img { height: 95px; }
+  .card {
+    padding: 24px 14px;
+  }
+
+  .food img {
+    height: 95px;
+  }
+
   .envelope-wrap {
     transform: scale(.88);
     margin-top: 20px;
@@ -369,7 +372,9 @@ button:active {
 <section class="page active" id="page1">
   <div class="card">
     <div class="decor">🌷 🧸 🌷</div>
-    <h1>Для моей Сашуни</h1>
+
+    <h1>Для моего Сашуни</h1>
+
     <p>Тебе пришло одно очень важное письмо...</p>
 
     <div class="envelope-wrap" id="envelope">
@@ -382,6 +387,7 @@ button:active {
     </div>
 
     <p>От самого любимого человека</p>
+
     <button class="primary" onclick="openEnvelope()">
       Открыть конверт 💌
     </button>
@@ -393,10 +399,13 @@ button:active {
 <section class="page" id="page2">
   <div class="card">
     <div class="illustration">🐱💕🐱</div>
+
     <h1>Сашуня!</h1>
+
     <p style="font-size:19px;font-weight:700">
       Ты пойдёшь со мной на свидание?
     </p>
+
     <p>Я очень хочу провести этот день вместе с тобой 🌸</p>
 
     <div class="decor">🌹 🧸 🌹</div>
@@ -416,11 +425,15 @@ button:active {
 <section class="page" id="page3">
   <div class="card">
     <div class="illustration">🥺🐱</div>
+
     <h1>Ну пожааалуйста!</h1>
+
     <p style="font-size:19px;font-weight:700">
       Может, всё-таки пойдёшь?
     </p>
+
     <p>Посмотри, котик уже расстроился...</p>
+
     <div class="illustration">🐈‍⬛💗</div>
 
     <button class="primary" onclick="goTo(4)">
@@ -434,13 +447,17 @@ button:active {
 <section class="page" id="page4">
   <div class="card">
     <div class="illustration">🗓️💗</div>
+
     <h1>Урааа!</h1>
+
     <p style="font-size:22px;font-weight:700">
       10.11.2026
     </p>
+
     <p style="font-size:19px">
       Ты свободен для нас?
     </p>
+
     <div class="decor">🌸 🐱 🌸</div>
 
     <button class="primary" onclick="goTo(5)">
@@ -454,7 +471,9 @@ button:active {
 <section class="page" id="page5">
   <div class="card">
     <div class="illustration">😋🍓</div>
+
     <h1>Тогда выбирай!</h1>
+
     <p>Что мы будем кушать на нашем свидании?</p>
 
     <div class="food-grid">
@@ -485,8 +504,7 @@ button:active {
       Выбери то, что тебе больше хочется ❤️
     </p>
 
-    <button class="primary" id="food-next"
-      onclick="goTo(6)" disabled>
+    <button class="primary" id="food-next" onclick="goTo(6)" disabled>
       Выбрал! 💗
     </button>
   </div>
@@ -550,7 +568,7 @@ function goTo(number) {
 
   if (number === 6) {
     document.getElementById('food-result').textContent =
-      'Сегодня мы будем кушать: ' + selectedFood;
+      'Мы будем кушать: ' + selectedFood;
   }
 }
 
